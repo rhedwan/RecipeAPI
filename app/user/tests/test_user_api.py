@@ -51,7 +51,8 @@ class PublicAPITests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_password_too_short(self):
-        """ Test an error is returned if password is less than five characters """
+        """ Test an error is returned if password is less
+         than five characters """
 
         payload = {
             'email': 'lol@example.com',

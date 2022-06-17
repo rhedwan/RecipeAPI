@@ -13,11 +13,15 @@ class AdminSiteTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.admin_user = get_user_model().objects.create_superuser(
-            email = 'addmin@example.com',
-            password = 'admin123'
+            email='addmin@example.com',
+            password='admin123'
         )
         self.client.force_login(self.admin_user)
-        self.user = get_user_model().objects.create_user(email = 'user@example.com', password = 'user..as', name = 'TestUser')
+        self.user = get_user_model().objects.create_user(
+            email='user@example.com',
+            password='user..as',
+            name='TestUser'
+        )
 
     def test_user_list(self):
         """ Test that user are listed on the page"""
@@ -30,7 +34,7 @@ class AdminSiteTests(TestCase):
     def test_edit_user_page(self):
         """ Test the edit user page works """
 
-        url = reverse('admin:core_user_change', args = [self.user.id])
+        url = reverse('admin:core_user_change', args=[self.user.id])
         res = self.client.get(url)
 
         self.assertEqual(res.status_code, 200)
