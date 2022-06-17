@@ -75,7 +75,7 @@ class PublicAPITests(TestCase):
         create_user(**user_details)
         payload = {
             'email': user_details['email'],
-            'password': user_details['admin_admin']
+            'password': user_details['password']
         }
         res = self.client.post(TOKEN_URL, payload)
         self.assertIn('token', res.data)
@@ -101,4 +101,3 @@ class PublicAPITests(TestCase):
         }
         res = self.client.post(TOKEN_URL, payload)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-
