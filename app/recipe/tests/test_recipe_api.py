@@ -125,7 +125,7 @@ class PrivateRecipeAPITests(TestCase):
             link=original_link
         )
 
-        payload = {'title':'new recipe title'}
+        payload = {'title': 'new recipe title'}
         url = detail_url(recipe.id)
         res = self.client.patch(url, payload)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -194,17 +194,16 @@ class PrivateRecipeAPITests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
         self.assertTrue(Recipe.objects.filter(id=recipe.id).exists())
 
-    def test_create_recipe_with_new_tag(self):
-        """ Test Creating a recipe with a tags"""
-
+    def test_create_recipe_with_new_tags(self):
+        """Test creating a recipe with new tags."""
         payload = {
-            'title': 'Thai parry Curry',
+            'title': 'Thai Prawn Curry',
             'time_minutes': 30,
-            'price': Decimal('45.2'),
-            'tags': [{'name': 'thia'}, {'name': 'Dinner'}]
+            'price': Decimal('2.50'),
+            'tags': [{'name': 'Thai'}, {'name': 'Dinner'}],
         }
-
         res = self.client.post(RECIPES_URL, payload, format='json')
+
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         recipes = Recipe.objects.filter(user=self.user)
         self.assertEqual(recipes.count(), 1)
@@ -213,21 +212,21 @@ class PrivateRecipeAPITests(TestCase):
         for tag in payload['tags']:
             exists = recipe.tags.filter(
                 name=tag['name'],
-                user=self.user
+                user=self.user,
             ).exists()
             self.assertTrue(exists)
 
-    def test_create_recipe_with_existing_tag(self):
-        """ Test creating a recipe with existing tag."""
-
+    def test_create_recipe_with_existing_tags(self):
+        """Test creating a recipe with existing tag."""
         tag_indian = Tag.objects.create(user=self.user, name='Indian')
         payload = {
-            'title': 'P0ngal',
-            'time_minutes': 90,
-            'price': Decimal('4.02'),
-            'tags': [{'name': 'Indian'}, {'name': 'Breakfast'}]
+            'title': 'Pongal',
+            'time_minutes': 60,
+            'price': Decimal('4.50'),
+            'tags': [{'name': 'Indian'}, {'name': 'Breakfast'}],
         }
         res = self.client.post(RECIPES_URL, payload, format='json')
+
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         recipes = Recipe.objects.filter(user=self.user)
         self.assertEqual(recipes.count(), 1)
@@ -237,6 +236,6 @@ class PrivateRecipeAPITests(TestCase):
         for tag in payload['tags']:
             exists = recipe.tags.filter(
                 name=tag['name'],
-                user=self.user
+                user=self.user,
             ).exists()
             self.assertTrue(exists)
