@@ -12,7 +12,7 @@ from rest_framework import status
 from core.models import Tag
 from recipe.serializers import TagSerializer
 
-TAGS_URL = reverse('recipe:list')
+TAGS_URL = reverse('recipe:tag-list')
 
 
 def create_user(email='test@example.com', password='linger_strike'):
@@ -56,7 +56,7 @@ class PrivateTagsAPITests(TestCase):
     def test_tags_limited_to_user(self):
         """Test list of tags is limited to an authenticated user"""
 
-        user2 = create_user(user='user2@ecample.com')
+        user2 = create_user(email='user2@ecample.com')
         Tag.objects.create(user=user2, name='Fruity')
         tag = Tag.objects.create(user=self.user, name='comfort food')
 
