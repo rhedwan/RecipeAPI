@@ -3,7 +3,8 @@ View to the recipe API
 """
 from drf_spectacular.utils import (extend_schema,
                                    extend_schema_view,
-                                   OpenApiTypes)
+                                   OpenApiTypes,
+                                   OpenApiParameter)
 from rest_framework import (viewsets, mixins, status)
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -16,6 +17,22 @@ from core.models import (Recipe,
 from recipe import serializers
 
 
+@extend_schema_view(
+    list=extend_schema(
+        parameters=[
+            OpenApiParameter(
+                'tags',
+                OpenApiTypes.STR,
+                description='Comma separated list of IDS to filter'
+            ),
+            OpenApiParameter(
+                'ingredients',
+                OpenApiTypes.STR,
+                description='Comma separated list of ingredients IDS to filter'
+            )
+        ]
+    )
+)
 class RecipeViewSet(viewsets.ModelViewSet):
     """ View for manage recipe API"""
 
