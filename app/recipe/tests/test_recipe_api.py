@@ -408,8 +408,8 @@ class PrivateRecipeAPITests(TestCase):
 
     def test_filter_by_ingredients(self):
         """Test filtering recipes by tag"""
-        r1 = create_recipe(user=self.user, title='Bread Maaggi')
-        r2 = create_recipe(user=self.user, title='Beans ')
+        r1 = create_recipe(user=self.user, title='Bread Maggi')
+        r2 = create_recipe(user=self.user, title='Beans')
         in1 = Ingredient.objects.create(user=self.user, name='Vegan')
         in2 = Ingredient.objects.create(user=self.user, name='Vegetarian')
         r1.ingredients.add(in1)
