@@ -126,7 +126,7 @@ class PrivateTagsAPITests(TestCase):
             price='4.50',
             user=self.user
         )
-        recipe1.ingredients.add(tag)
-        recipe2.ingredients.add(tag)
+        recipe1.tags.add(tag)
+        recipe2.tags.add(tag)
         res = self.client.get(TAGS_URL, {'assigned_only': 1})
         self.assertEqual(len(res.data), 1)
